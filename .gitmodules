@@ -1,0 +1,3 @@
+[submodule "client_hrimport"]
+	path = client_hrimport
+	url = git@github.com:Brncnnr/client_hrimport.git
