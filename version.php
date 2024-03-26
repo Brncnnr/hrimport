@@ -13,14 +13,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
  * @package   local_hrimport
  * @copyright 2023, Alex Süß <alexander.suess@kamedia.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2023090401;
+$plugin->version = 2023090442;
+
 $plugin->requires = 2019051300;
 
 $plugin->component = 'local_hrimport';

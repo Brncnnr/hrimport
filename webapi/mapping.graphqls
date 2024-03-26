@@ -1,0 +1,21 @@
+query local_hrimport_mapping($source: String!) {
+  mapping(source: $source) {
+    source
+    hrfields
+  }
+}
+
+type hrfield {
+  name: String
+  mapping: String
+  required: Boolean
+}
+
+type local_hrimport_mapping {
+  source: String
+  hrfields: hrfield
+}
+
+extend type Query {
+  local_hrimport_mapping(source: String!): [local_hrimport_mapping]!
+}
