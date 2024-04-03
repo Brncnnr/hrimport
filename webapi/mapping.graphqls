@@ -1,21 +1,14 @@
-query local_hrimport_mapping($source: String!) {
-  mapping(source: $source) {
-    source
-    hrfields
-  }
-}
-
-type hrfield {
-  name: String
-  mapping: String
-  required: Boolean
+extend type Query {
+  local_hrimport_mapping(source: String): local_hrimport_mapping
 }
 
 type local_hrimport_mapping {
   source: String
-  hrfields: hrfield
+  source_fields: [local_hrimport_source_fields]
 }
 
-extend type Query {
-  local_hrimport_mapping(source: String!): [local_hrimport_mapping]!
+type local_hrimport_source_fields {
+  name: String
+  mapping: String
+  required: Boolean
 }
