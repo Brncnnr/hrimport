@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Totara LMS
  *
@@ -25,35 +26,39 @@ defined('MOODLE_INTERNAL') || die;
 $systemcontext = context_system::instance();
 
 $ADMIN->add(
-        'tool_totara_sync',
-        new admin_externalpage(
-            'hrimport_vue',
-            get_string('hrimport_adminsettings_vue', 'local_hrimport'),
-            new moodle_url('/local/hrimport/hrimport.php'),
-        )
-    );
-$ADMIN->add('tool_totara_sync', new admin_category('hrimport_adminsettings_cat', get_string('hrimport_adminsettings_cat','local_hrimport')));
-$ADMIN->add(
-        'hrimport_adminsettings_cat',
-        new admin_externalpage(
-            'hrimport_skript',
-            get_string('hrimport_adminsettings_run_task', 'local_hrimport'),
-            new moodle_url('/local/hrimport/debug.php'),
-        )
-    );
-$ADMIN->add(
-        'hrimport_adminsettings_cat',
-        new admin_externalpage(
-            'user_mapping',
-            get_string('hrimport_adminsettings_user_mapping', 'local_hrimport'),
-            new moodle_url('/local/hrimport/usermapping.php'),
-        )
-    );
-$ADMIN->add(
-        'hrimport_adminsettings_cat',
-        new admin_externalpage(
-            'job_mapping',
-            get_string('hrimport_adminsettings_job_mapping', 'local_hrimport'),
-            new moodle_url('/local/hrimport/jobmapping.php'),
-        )
-    );
+    'tool_totara_sync',
+    new admin_externalpage(
+        'hrimport_vue',
+        get_string('hrimport_adminsettings_vue', 'local_hrimport'),
+        new moodle_url('/local/hrimport/hrimport.php'),
+    )
+);
+
+/*
+ * $ADMIN->add('tool_totara_sync', new admin_category('hrimport_adminsettings_cat', get_string('hrimport_adminsettings_cat','local_hrimport')));
+ * $ADMIN->add(
+ *         'hrimport_adminsettings_cat',
+ *         new admin_externalpage(
+ *             'hrimport_skript',
+ *             get_string('hrimport_adminsettings_run_task', 'local_hrimport'),
+ *             new moodle_url('/local/hrimport/debug.php'),
+ *         )
+ *     );
+ * $ADMIN->add(
+ *         'hrimport_adminsettings_cat',
+ *         new admin_externalpage(
+ *             'user_mapping',
+ *             get_string('hrimport_adminsettings_user_mapping', 'local_hrimport'),
+ *             new moodle_url('/local/hrimport/usermapping.php'),
+ *         )
+ *     );
+ * $ADMIN->add(
+ *         'hrimport_adminsettings_cat',
+ *         new admin_externalpage(
+ *             'job_mapping',
+ *             get_string('hrimport_adminsettings_job_mapping', 'local_hrimport'),
+ *             new moodle_url('/local/hrimport/jobmapping.php'),
+ *         )
+ * );
+ */
+

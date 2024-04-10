@@ -15,15 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
  * @package   local_hrimport
- * @copyright 2023, Alex Süß <alexander.suess@kamedia.de>
+ * @copyright
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-require_once('../../config.php');
-require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot . '/admin/tool/totara_sync/lib.php');
+require_once ('../../config.php');
+require_once ($CFG->libdir . '/adminlib.php');
+require_once ($CFG->dirroot . '/admin/tool/totara_sync/lib.php');
 
 /**
  * * get protected Value
@@ -41,6 +39,7 @@ function getProtectedValue($object, $prop_name)
 function local_import_csvtoarray()
 {
     global $CFG;
+
     $stream = fopen($CFG->dataroot . '/hrimport/test.csv', 'r');
     if ($stream) {
         $header = [];
@@ -69,19 +68,15 @@ $csv = local_import_csvtoarray()[1];
 
 file_put_contents($CFG->dataroot . '/hrimport/user.json', json_encode($header, JSON_PRETTY_PRINT));
 
-/**
- * * get source data for hr-import
- */
-
+/** * get source data for hr-import */
 $elementname = 'user';
 $sourcename = 'totara_sync_source_user_csv';
-
 
 if (!$element = totara_sync_get_element($elementname)) {
     print_error('elementnotfound', 'tool_totara_sync');
 }
 
-//get every config entry
+// get every config entry
 $source = $element->get_source($sourcename)->get_config(null);
 // var_dump($source);
 
@@ -96,9 +91,10 @@ foreach ($source as $key => $value) {
 // file_put_contents($CFG->dataroot . '/hrimport/hrimportfields_user.json', json_encode($sourceArray, JSON_PRETTY_PRINT));
 
 /*
-if (!$source->has_config()) {
-    print_error('nosourceconfig', 'tool_totara_sync', $elementname);
-}*/
+ * if (!$source->has_config()) {
+ *     print_error('nosourceconfig', 'tool_totara_sync', $elementname);
+ * }
+ */
 $response = new \stdClass;
 try {
     if (isset($_GET)) {
@@ -110,10 +106,9 @@ try {
 }
 echo json_encode($response);
 
-
 // totara_sync_add_to_config_log('totara_sync','totara_sync_source_user_csv|fieldmapping_idnumber','manuell2');
+
 /**
- * 
  * backup
  * /admin/tool/totara_sync/lib.php
  */
@@ -131,3 +126,4 @@ echo json_encode($response);
 //         add_to_config_log($name, $oldvalue, $value,'totara_sync');
 //     }
 // }
+

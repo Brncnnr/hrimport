@@ -3,6 +3,7 @@
 namespace local_hrimport\webapi\resolver\type;
 
 use core\webapi\execution_context;
+use GraphQL\Type\Definition\ObjectType;
 
 class mapping extends \core\webapi\type_resolver
 {
@@ -13,12 +14,14 @@ class mapping extends \core\webapi\type_resolver
     public static function resolve(string $field, $resource, array $args, execution_context $ec)
     {
         switch ($field) {
-            case 'hrfields':
-                return (object) ['hrfields' => ['name' => 'testname']];
-                // return (object) ['name' => 'testname', 'mapping' => 'custom_testname', 'required' => true];
+            case 'source':
+                return $resource[$field];
+                break;
+            case 'source_fields':
+                return ['type-query-test-source_field', 'mapping?'];
                 break;
             default:
-                return $resource;
+                return 'default-type-resolver';
                 break;
         }
     }

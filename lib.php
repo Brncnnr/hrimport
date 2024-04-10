@@ -15,93 +15,120 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
  * @package   local_hrimport
- * @copyright 2023, Alex Süß <alexander.suess@kamedia.de>
+ * @copyright 2024, Alex Süß <alexander.suess@kamedia.de>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-//defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die();
+require_once ($CFG->dirroot . '/admin/tool/totara_sync/sources/source_user_csv.php');
 
-/*
- * totara_sync_get_elements -> get all enabled elements 
- */
-require('../../config.php');
-require_once($CFG->libdir.'/adminlib.php');
-require_once($CFG->dirroot.'/admin/tool/totara_sync/lib.php');
-require_once($CFG->dirroot.'/admin/tool/totara_sync/admin/forms.php');
-
-$hrroot = $CFG->dataroot . '/hrimport';
-$elements = totara_sync_get_elements(true);
-
-//var_dump(totara_sync_get_element('pos')->get_source
-
-/*
- * gives 'pos' back ->
-var_dump(key($elements));
-die();
-* create arary of the standard fields
-* foreach over enabled positions
-* get custom_fields and mapping
-* create files
-* fill file here?
-*
-* function get_customfield_json
- */
-$user_fields = [
-    'address', 'city', 'country', 'department', 'description',
-    'email', 'firstname', 'institution', 'lang', 'lastname', 'firstnamephonetic',
-    'lastnamephonetic', 'middlename', 'alternatename', 'phone1', 'phone2',
-    'timemodified', 'timezone', 'url', 'username', 'suspended', 'emailstop', 'auth'
-];
-
-$pos_fields = [
-            'idnumber',
-            'fullname',
-            'shortname',
-            'deleted',
-            'description',
-            'frameworkidnumber',
-            'parentidnumber',
-            'typeidnumber',
-            'timemodified'
-];
-
-$job_fields = [
-            'idnumber',
-            'useridnumber',
-            'timemodified',
-            'deleted',
-            'fullname',
-            'startdate',
-            'enddate',
-            'orgidnumber',
-            'posidnumber',
-            'appraiseridnumber',
-            'manageridnumber',
-            'tempmanageridnumber'
-];
-
-$org_fields = [
-            'idnumber',
-            'fullname',
-            'shortname',
-            'deleted',
-            'description',
-            'frameworkidnumber',
-            'parentidnumber',
-            'typeidnumber',
-            'timemodified'
-];
-
-foreach ($elements as $element) {
-    $title = key($elements);
-    $source = $element->get_source("totara_sync_source_{$title}_csv");
-    var_dump($element->get_source("totara_sync_source_{$title}_csv"));
-    die();
-//    var_dump(json_decode($element,true, 5));
-    file_put_contents("{$hrroot}/{$title}.json", json_encode($source)); 
-    die();
+function local_hrimport_user_mapping()
+{
+    $standard_fields = [
+        'address',
+        'city',
+        'country',
+        'department',
+        'description',
+        'email',
+        'firstname',
+        'institution',
+        'lang',
+        'lastname',
+        'firstnamephonetic',
+        'lastnamephonetic',
+        'middlename',
+        'alternatename',
+        'phone1',
+        'phone2',
+        'timemodified',
+        'timezone',
+        'url',
+        'username',
+        'suspended',
+        'emailstop',
+        'auth'
+    ];
+    return $standard_fields;
 }
 
-//var_dump($elements);
-die();
+/*
+ * function local_hrimport_get_mappings()
+ * {
+ *     global $DB;
+ *
+ *     /**
+ * TODO get all field
+ * just get every entry in user_info_field
+ * separate between required and custom?
+ *
+ * $user_fields = [
+ *     'address',
+ *     'city',
+ *     'country',
+ *     'department',
+ *     'description',
+ *     'email',
+ *     'firstname',
+ *     'institution',
+ *     'lang',
+ *     'lastname',
+ *     'firstnamephonetic',
+ *     'lastnamephonetic',
+ *     'middlename',
+ *     'alternatename',
+ *     'phone1',
+ *     'phone2',
+ *     'timemodified',
+ *     'timezone',
+ *     'url',
+ *     'username',
+ *     'suspended',
+ *     'emailstop',
+ *     'auth'
+ * ];
+ *
+ *     $pos_fields = [
+ *         'idnumber',
+ *         'fullname',
+ *         'shortname',
+ *         'deleted',
+ *         'description',
+ *         'frameworkidnumber',
+ *         'parentidnumber',
+ *         'typeidnumber',
+ *         'timemodified'
+ *     ];
+ *
+ *     $job_fields = [
+ *         'idnumber',
+ *         'useridnumber',
+ *         'timemodified',
+ *         'deleted',
+ *         'fullname',
+ *         'startdate',
+ *         'enddate',
+ *         'orgidnumber',
+ *         'posidnumber',
+ *         'appraiseridnumber',
+ *         'manageridnumber',
+ *         'tempmanageridnumber'
+ *     ];
+ *
+ *     $org_fields = [
+ *         'idnumber',
+ *         'fullname',
+ *         'shortname',
+ *         'deleted',
+ *         'description',
+ *         'frameworkidnumber',
+ *         'parentidnumber',
+ *         'typeidnumber',
+ *         'timemodified'
+ *     ];
+ *
+ *     /** get all customfields
+ *     $cstmfields = $DB->get_records('user_info_field');
+ *     var_dump($cstmfields);
+ * }
+ */
